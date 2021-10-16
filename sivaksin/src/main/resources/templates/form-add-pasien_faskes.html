@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Pasien')"></nav>
+<div class="container">
+    <br>
+    <div class="card">
+        <h6 class="card-header d-flex justify-content-center bg bg-info">
+            Tambah Pasien Faskes
+        </h6>
+        <div class="card-body m-4 p-4">
+            <div class="justify-content-center">
+                <form th:action="@{/faskes/pasien/tambah/} " th:object="${faskes}" method="POST">
+                    <input type="hidden" name="idBatch" th:value="${batchId}" />
+                    <input type="hidden" name="idFaskes" th:value="${faskes.idFaskes}" />
+                    <input type="hidden" name="namaFaskes" th:value="${namaFaskes}" />
+                    <input type="hidden" name="jenisVaksin" th:value="${jenisVaksin}" />
+
+                    Pasien : <br>
+                    <input type="hidden" required class="form-control" th:field="*{idFaskes}" />
+                    <div class="form-group">
+                        <select required class="form-control" name="pasien" id="pasien">
+                            <option th:each="pasienItem, iterationStatus : ${listPasien}"
+                                    th:value="${pasienItem.idPasien}"
+                                    th:text="${pasienItem.namaPasien}"
+                                    th:selected="${pasienItem.idPasien}"
+                            ></option>
+
+                        </select>
+                    </div>
+
+                    Dokter : <br>
+                    <input type="hidden" required class="form-control" th:field="*{idFaskes}" />
+                    <div class="form-group">
+                        <select required class="form-control" name="dokter" id="dokter">
+                            <option th:each="dokterItem, iterationStatus : ${listDokter}"
+                                    th:value="${dokterItem.idDokter}"
+                                    th:text="${dokterItem.namaDokter}"
+                                    th:selected="${dokterItem.idDokter}"
+                            ></option>
+
+                        </select>
+                    </div>
+
+                    Waktu Suntik : <br>
+                    <input required class="form-control" type="datetime-local" name="waktuSuntik" />
+                    <br><br>
+
+                    <button class="mx-2 btn btn-info float-right" type="submit">Tambah</button>
+                    <a class="mx-2 btn btn-outline-dark float-right" th:href="@{/faskes/} + ${faskes.idFaskes}">Batal</a>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/fragment :: footer('Pasien')"></footer>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Faskes')"></nav>
+<div class="container">
+    <br>
+    <div class="card">
+        <h6 class="card-header d-flex justify-content-center bg bg-info">
+            Ubah Faskes
+        </h6>
+        <div class="card-body m-4 p-4">
+            <div class="justify-content-center">
+                <form th:action="@{/faskes/ubah}" th:object="${faskes}" method="POST">
+                    <input type="hidden" th:field="*{listPasien}" />
+
+                    Nama Faskes : <br>
+                    <input required class="form-control" type="text" name="namaFaskes" th:value="*{namaFaskes}"/>
+                    <br><br>
+
+                    Kuota : <br>
+                    <input required class="form-control" type="text" name="kuota" th:value="*{kuota}"/>
+                    <br><br>
+
+                    Provinsi : <br>
+                    <input required class="form-control" type="text" name="provinsi" th:value="*{provinsi}"/>
+                    <br><br>
+
+                    Kabupaten : <br>
+                    <input required class="form-control" type="text" name="kabupaten" th:value="*{kabupaten}"/>
+                    <br><br>
+
+                    Jam Mulai : <br>
+                    <input required class="form-control" type="time" name="jamMulai" th:value="*{jamMulai}"/>
+                    <br><br>
+
+                    Jam Tutup : <br>
+                    <input required class="form-control" type="time" name="jamTutup" th:value="*{jamTutup}"/>
+                    <br><br>
+
+                    Vaksin : <br>
+                    <input type="hidden" required class="form-control" th:field="*{idFaskes}" />
+                    <div class="form-group">
+                        <select required class="form-control" name="vaksin" id="vaksin" th:value="*{vaksin.getJenisVaksin()}">
+                            <option th:each="vaksinItem, iterationStatus : ${listVaksin}"
+                                    th:value="${vaksinItem.idVaksin}"
+                                    th:text="${vaksinItem.jenisVaksin}"
+                                    th:selected="${vaksinItem.jenisVaksin}"
+                            ></option>
+                        </select>
+                    </div>
+                    <button class="mx-2 btn btn-dark float-right" type="submit">Ubah</button>
+                    <a class="mx-2 btn btn-outline-dark float-right" th:href="@{/faskes}">Batal</a>
+                </form>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/fragment :: footer('Faskes')"></footer>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Faskes')"></nav>
+<div class="container">
+    <br>
+    <a class="btn btn-info" th:href="@{faskes/tambah}">Tambah Faskes</a>
+    <br><br>
+    <div class="card">
+        <h6 class="card-header d-flex justify-content-center bg bg-info">
+            Daftar Faskes
+        </h6>
+        <br>
+        <div class="card-body">
+            <div th:if="*{listFaskes.size() != 0}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Faskes</th>
+                        <th>Kuota</th>
+                        <th>Provinsi</th>
+                        <th>Kabupaten</th>
+                        <th>Jam Mulai</th>
+                        <th>Jam Selesai</th>
+                        <th>Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="faskes, iterationStatus : ${listFaskes}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${faskes.namaFaskes}"></td>
+                        <td th:text="${faskes.kuota}"></td>
+                        <td th:text="${faskes.provinsi}"></td>
+                        <td th:text="${faskes.kabupaten}"></td>
+                        <td th:text="${faskes.jamMulai}"></td>
+                        <td th:text="${faskes.jamTutup}"></td>
+                        <td>
+                            <a class="btn btn-info" th:href="@{/faskes/} + ${faskes.idFaskes}">Detail</a>
+                            <a class="btn btn-dark" th:href="@{/faskes/ubah/} + ${faskes.idFaskes}">Update</a>
+                            <a class="btn btn-danger" th:href="@{/faskes/hapus/} + ${faskes.idFaskes}">Delete</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:unless="*{listFaskes.size() != 0}">
+                <h2 th:text="'Tidak ada Faskes'"></h2>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<footer th:replace="fragments/fragment :: footer('Faskes')"></footer>
+</body>
+</html>

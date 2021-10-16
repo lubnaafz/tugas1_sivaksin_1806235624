@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Pasien')"></nav>
+<div class="container">
+    <br>
+    <div class="card">
+        <h6 class="card-header d-flex justify-content-center bg bg-info">
+            Tambah Pasien
+        </h6>
+        <div class="card-body m-4 p-4">
+            <div class="justify-content-center">
+                <br>
+                <form th:action="@{/pasien/tambah}" th:object="${pasien}" method="POST">
+                    Nama Pasien : <br>
+                    <input required class="form-control" type="text" name="namaPasien" />
+                    <br><br>
+
+                    NIK : <br>
+                    <input required class="form-control" type="text" name="nik" />
+                    <br><br>
+
+                    Nomor Telepon : <br>
+                    <input required class="form-control" type="text" name="nomorTeleponPasien" />
+                    <br><br>
+
+                    Jenis Kelamin : <br>
+                    <select required class="form-control" name="jenisKelamin">
+                        <option value="0">Perempuan</option>
+                        <option value="1">Laki-laki</option>
+                    </select>
+                    <br><br>
+
+                    Tanggal Lahir : <br>
+                    <input required class="form-control" type="datetime-local" name="tanggalLahir" />
+                    <br><br>
+
+                    Tempat Lahir : <br>
+                    <input required class="form-control" type="text" name="tempatLahir" />
+                    <br><br>
+
+                    Pekerjaan Pasien : <br>
+                    <input required class="form-control" type="text" name="pekerjaan" />
+                    <br><br>
+
+                    <button class="mx-2 btn btn-info float-right" type="submit">Tambah</button>
+                    <a class="mx-2 btn btn-outline-dark float-right" th:href="@{/pasien}">Batal</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/fragment :: footer('Pasien')"></footer>
+</body>
+
+</html>

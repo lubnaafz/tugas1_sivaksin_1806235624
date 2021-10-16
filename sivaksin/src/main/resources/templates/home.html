@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFIBw8HfCJo="
+            crossorigin="anonymous"></script>
+    <script src="https://getbootstrap.com/docs/4.1/assets/js/vendor/popper.min.js"></script>
+    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+</head>
+
+<body>
+<nav th:replace="fragments/fragment :: navbar('Home')">
+</nav>
+<div class="container-fluid bg-light">
+    <div class="container w-100 justify-content-center pt-110 my-2 bg-info">
+        <div class="d-flex align-items-md-center justify-content-center">
+            <h2><br>Selamat datang di SIVAKSIN<br><br></h2>
+        </div>
+    </div>
+    <div class="justify-content-center">
+        <div class="m-4">
+            <div class="d-flex justify-content-center">
+                <h6><br>Daftar Fitur: </h6><br>
+            </div>
+            <div class="d-flex justify-content-center">
+                <a th:href="@{/faskes}" class="mx-2 btn btn-info">Fasilitas Kesehatan</a>
+                <a th:href="@{/pasien}" class="mx-2 btn btn-info">Pasien</a>
+                <div class="dropdown show">
+                    <a class="btn btn-info dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        Cari
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" th:href="@{/cari/faskes}">Faskes</a>
+                        <a class="dropdown-item" th:href="@{/cari/pasien}">Pasien</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br><br>
+    </div>
+</div>
+<footer th:replace="fragments/fragment :: footer('Home')"></footer>
+</body>
+
+</html>

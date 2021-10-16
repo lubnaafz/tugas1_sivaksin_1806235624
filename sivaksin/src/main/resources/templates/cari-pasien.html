@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title> SIVAKSIN </title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar('Pasien')"></nav>
+<div class="container">
+    <br>
+    <div class="row">
+        <div class="col-2">
+            <p>Pilih Jenis Vaksin</p>
+        </div>
+        <div class="col-4">
+            <p>Pilih Faskes</p>
+        </div>
+    </div>
+    <form class="row" th:action="@{/cari/pasien(jenisVaksin=${jenisVaksin}, namaFaskes=${namaFaskes})}" method="get">
+        <div class="col-2">
+            <select class="form-control" name="jenisVaksin" id="jenisVaksin">
+                <option selected th:value= null> --Pilih Vaksin-- </option>
+                <option th:each="vaksinItem, iterationStatus : ${listVaksin}"
+                        th:value="${vaksinItem.jenisVaksin}"
+                        th:text="${vaksinItem.jenisVaksin}"
+                ></option>
+            </select>
+        </div>
+        <div class="col-4">
+            <select class="form-control" name="namaFaskes" id="namaFaskes">
+                <option selected th:value= null> --Pilih Faskes-- </option>
+                <option th:each="faskesItem, iterationStatus : ${listFaskes}"
+                        th:value="${faskesItem.namaFaskes}"
+                        th:text="${faskesItem.namaFaskes}"
+                ></option>
+            </select>
+        </div>
+        <div class="col-5">
+            <input class="btn btn-dark" type="submit" value="search"/>
+        </div>
+    </form>
+    <br>
+    <div class="card">
+        <h6 class="card-header d-flex justify-content-center bg bg-info">
+            Daftar Pasien berdasarkan Jenis Vaksin dan Faskes
+        </h6>
+        <div class="card-body">
+            <div th:if="*{listDokterPasien.size() != 0}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>NIK</th>
+                        <th>Nomor Telepon</th>
+                        <th>Jenis Kelamin</th>
+                        <th>Batch ID</th>
+                        <th>Waktu Suntik</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dokterPasien, iterationStatus : ${listDokterPasien}">
+                        <td th:text="${iterationStatus.count}"></td>
+                        <td th:text="${dokterPasien.pasien.namaPasien}"></td>
+                        <td th:text="${dokterPasien.pasien.nik}"></td>
+                        <td th:text="${dokterPasien.pasien.nomorTeleponPasien}"></td>
+                        <td th:if="${dokterPasien.pasien.jenisKelamin} == 0">Perempuan</td>
+                        <td th:if="${dokterPasien.pasien.jenisKelamin} == 1">Laki-Laki</td>
+                        <td th:text="${dokterPasien.idBatch}"></td>
+                        <td th:text="${dokterPasien.getWaktuSuntik().getDayOfMonth()} + ' ' + ${dokterPasien.getWaktuSuntik().getMonth().toString()} + ' '
+                        + ${dokterPasien.getWaktuSuntik().getYear()} + ', ' + ${dokterPasien.getWaktuSuntik().getHour()} + ':' + ${dokterPasien.getWaktuSuntik().getMinute()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div th:unless="*{listDokterPasien.size() != 0}">
+                <h6 class="d-flex justify-content-center" th:text="'Maaf, tidak ada daftar Pasien berdasarkan pencarian Anda'"></h6>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+<footer th:replace="fragments/fragment :: footer('Pasien')"></footer>
+</body>
+</html>
